@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>抽奖</title>
+		<meta name="keywords" content="抽奖" />
+		<meta name="description" content="抽奖" />
+		<style type="text/css"></style>
+		<style>
+			*{margin: 0; padding: 0;}
+			#rotate
+			{
+				position: relative;
+				width: 854px;
+				height: 504px;
+				background: url(img/bg1.png) #CD201F;
+				margin: 60px auto;
+			}
+			#rotate .rotateArrow
+			{
+				position: absolute;
+				width: 294px;
+				height: 294px;
+				background: url(img/arrow.png);
+				left: 180px;
+				top: 101px;
+				cursor: pointer;		
+			}
+			#rotate .list
+			{
+				width:140px;
+				height:330px;
+				position: absolute;
+				left: 672px;
+				top: 131px;
+				overflow: hidden;
+			}
+			#rotate .list ul li
+			{
+				list-style: none;
+				height: 25px;
+				line-height: 25px;
+				color: #ffed00;
+				background: url(img/user.png) no-repeat;
+				background-position: 9px 5px;
+				text-indent: 35px;
+			} 
+			#rotate .result
+			{
+				position: absolute;
+				height: 120px;
+				width: 400px;
+				background: rgba(0,0,0,0.7);
+				left: 128px;
+				top: 189px;
+				display: none;
+			}
+			#rotate .result a
+			{
+				height: 24px;
+				width: 24px;
+				background: url(img/close.png);
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+			#rotate .result p
+			{
+				color: white;
+				line-height: 120px;
+				text-align: center;
+			}
+			.list ul
+			{
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript"></script>
+		<div id="rotate">	
+		   <div class="rotateArrow">
+		   </div>		
+			<div class="list">
+				<ul>
+					<li>188****8888</li>
+					<li>185****8882</li>
+					<li>187****8558</li>
+					<li>182****8822</li>
+					<li>187****6688</li>
+					<li>188****8889</li>
+					<li>188****8880</li>
+					<li>186****0088</li>
+					<li>188****8888</li>
+					<li>183****2333</li>
+					<li>181****1188</li>
+					<li>184****4499</li>
+					<li>180****0000</li>
+					<li>183****6666</li>
+					<li>166****6666</li>
+					<li>188****8880</li>
+					<li>186****0088</li>
+					<li>188****8888</li>
+					<li>183****2333</li>
+				</ul>			
+			</div>
+			<div class="result">
+				<a href="javascript:;" id="btn"></a>
+				<p>恭喜你中奖了</p>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.rotate.min.js"></script>
+		<script>
+			var $this;
+			$('#rotate .rotateArrow').click(function()
+			{
+				$this=$(this);
+				var data=[0,1,2,3,4,5,6,7];
+				var m=data[Math.floor(Math.random()*data.length)];
+				switch(m)
+				{
+					case 1:
+						rotateFun(45,'恭喜你获得5元代金券');
+						break;
+					case 2:
+					    rotateFun(90,'恭喜你获得1元代金券');
+						break;
+					case 3:
+						rotateFun(135,'恭喜你获得10元代金券');
+						break;
+					case 4:
+						rotateFun(180,'很遗憾你没有中奖');
+						break;
+					case 5:
+						rotateFun(225,'恭喜你获得20元代金券');
+						break;
+					case 6:
+						rotateFun(270,'恭喜你获得50元代金券');
+						break;
+					case 7:
+						rotateFun(315,'恭喜你获得30元代金券');
+						break;
+					default:
+					    rotateFun(0,'很遗憾你没有中奖');
+						break;
+				}
+			});
+			$('#rotate a').click(function(){
+				$('#rotate .result').hide();
+			});
+			function rotateFun(angel,txt)
+			{
+				var n=Math.floor(Math.random()*5)+1;
+				$this.rotate(
+				{
+					angel:0,
+					duration:5000,
+					animateTo:angel+1440*n,
+					callback:function()
+					{
+						$('.result').show();
+						$('.result p').html(txt);
+					}
+				});
+			}
+			
+			setInterval(function(){
+				$('#rotate .list ul').animate({'top':'-25px'},600,function(){
+					$(this).append($('#rotate .list ul li:first'));
+					$(this).css('top','0px');
+				});
+			},1000);
+		</script>
+	</body>
+</html>
